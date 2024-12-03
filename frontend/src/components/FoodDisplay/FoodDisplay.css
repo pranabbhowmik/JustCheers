@@ -1,0 +1,25 @@
+.food-display {
+  margin-top: 30px;
+}
+
+.food-display-list {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 card per row by default */
+  margin-top: 20px;
+  gap: 30px;
+  row-gap: 10px;
+}
+
+/* For large screens (2 cards per row) */
+@media (min-width: 1024px) {
+  .food-display-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+}
+
+/* For small screens (1 card per row) */
+@media (max-width: 768px) {
+  .food-display-list {
+    grid-template-columns: 1fr; /* 1 card per row */
+  }
+}
