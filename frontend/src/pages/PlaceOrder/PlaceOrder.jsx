@@ -3,6 +3,8 @@ import { StoreContext } from "../../context/StoreContext";
 import "animate.css";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { FaGooglePay } from "react-icons/fa";
+import { SiPhonepe } from "react-icons/si";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount } = useContext(StoreContext);
@@ -272,11 +274,14 @@ const PlaceOrder = () => {
                 Credit Card
               </button>
             </li>
-            <li>
-              <button className="w-full bg-gray-100 p-2 hover:bg-red-500 hover:text-white delay-150 rounded-lg">
-                UPI
+            <li className="flex justify-center items-center h-full">
+              <button className="w-full max-w-sm bg-gray-100 p-2 hover:bg-red-500 hover:text-white delay-150 rounded-lg flex items-center gap-2  flex-row justify-center">
+                <FaGooglePay className="w-8 h-8" />
+                <SiPhonepe className="w-5 h-5" />
+                <span className="text-center">UPI</span>
               </button>
             </li>
+
             <li>
               <button className="w-full bg-gray-100 p-2 hover:bg-red-500 hover:text-white delay-150 rounded-lg">
                 Cash on Delivery
