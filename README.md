@@ -1,43 +1,54 @@
 # Just Cheers 🍻
 
-**Just Cheers** is a modern and user-friendly alcohol delivery app designed to make your beverage shopping effortless and enjoyable. With Just Cheers, you can browse, select, and order your favorite drinks, all from the comfort of your home.
-
-## 🚀 App Link
-Explore the live app here: [Just Cheers](https://justcheers.netlify.app/)
+**An Alcohol Delivery App**  
+[Visit the App UI](https://justcheers.netlify.app/)
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Homepage
-![Homepage Screenshot](./Screenshot%202024-12-03%20200224.png)
+![Homepage](./frontend/public/1.png)
 
-### Mobile View
-![Mobile View Screenshot](./Screenshot%202024-12-03%20200302.png)
+### Top Drinks (LOGO)
+![Top Drinks - Desktop View](./frontend/src/assets/logo.png)
 
-### Delivery Information
-![Delivery Information Screenshot](./Screenshot%202024-12-03%20200329.png)
+### Top Drinks (Mobile View)
+![Top Drinks - Mobile View](./frontend/public/2.png)
 
----
+### Delivery Information Form
+![Delivery Information Form](./frontend/public/4.png)
 
-## 💡 Features
-- **Wide Selection**: Choose from a variety of beers, wines, and spirits.
-- **User-Friendly Interface**: Clean and intuitive UI for easy navigation.
-- **Real-Time Tracking**: Track your order status in real-time (future update).
-- **Secure Payment**: Multiple payment options to ensure safety.
-- **Responsive Design**: Optimized for all devices, from desktops to smartphones.
+### Payment Methods (Desktop)
+![Navigation Bar - Desktop](./frontend/public/5.png)
 
----
-
-## 🛠️ Tech Stack
-- **Frontend**: React.js, Tailwind CSS
-- **Backend**: Node.js, Express (coming soon)
-- **Database**: MongoDB (coming soon)
-- **Hosting**: Netlify
+### Order Confirm (Mobile)
+![Navigation Bar - Mobile](./frontend/public/6.png)
 
 ---
 
-## 📚 How to Run Locally
-1. **Clone the Repository**
+## Features
+
+- Explore a variety of drinks by category (Rum, Vodka, Whisky, etc.)
+- Intuitive and responsive UI for desktop and mobile
+- Easy-to-use delivery form with tip customization
+- Add items to the cart directly from product cards
+- Multi-size selection for bottles (180ml, 375ml, 750ml, 1L)
+
+---
+
+## Tech Stack
+
+- **Frontend**: React, Tailwind CSS
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **Hosting**: Netlify for frontend, Heroku for backend
+
+---
+
+## Installation
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/justcheers.git
+   git clone https://github.com/your-username/just-cheers.git
+   cd just-cheers
