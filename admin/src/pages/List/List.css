@@ -1,0 +1,124 @@
+.list {
+  margin-bottom: 10px;
+}
+.list-table-format {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border: 1px solid #cacaca;
+}
+.list-table-format.title {
+  background-color: #f9f9f9;
+}
+.list-table-format img {
+  width: 50px;
+}
+.update-remove-food {
+  display: flex;
+  justify-content: start;
+  gap: 6px;
+}
+.remove-food,
+.update-food {
+  cursor: pointer;
+  display: grid;
+}
+
+.edit-food {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.212);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+}
+.food-editor {
+  place-self: center;
+  display: grid;
+  background-color: white;
+  width: 60vw;
+  height: fit-content;
+  border-radius: 6px;
+  box-shadow: 0 7px 7px lightgray;
+  padding: 20px 20px;
+  overflow: hidden;
+}
+.food-editor header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  h3 {
+    color: black;
+  }
+}
+
+.editor-table-format {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 4fr 0.5fr 0.5fr 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border: 1px solid #cacaca;
+  border-radius: 4px;
+}
+.editor-table-format img {
+  width: 50px;
+  border-radius: 3px;
+}
+.editor-table-format input {
+  padding: 2px 3px;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+.editor-table-format select {
+  padding: 2px 0;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+}
+.editor-table-format button {
+  background-color: tomato;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 3px;
+  color: white;
+}
+@media (max-width: 1467px) {
+  .food-editor {
+    width: 85vw;
+  }
+}
+@media (max-width: 1000px) {
+  .editor-table-format {
+    grid-template-columns: 0.5fr 1fr 4fr;
+  }
+}
+@media (max-width: 667px) {
+  .editor-table-format {
+    grid-template-columns: auto;
+    padding: 10px;
+  }
+  .editor-table-format img {
+    width: 100%;
+  }
+  .editor-table-format input,
+  .editor-table-format select {
+    padding: 10px;
+  }
+  .editor-table-format button {
+    font-weight: 600;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .list-table-format {
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 15px;
+  }
+}

@@ -1,0 +1,12 @@
+.admin-navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 4%;
+  align-items: center;
+}
+.admin-navbar .logo {
+  width: max(10%, 80px);
+}
+.admin-navbar .profile {
+  width: 40px;
+}
