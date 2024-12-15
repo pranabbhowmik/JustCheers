@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CreditCard } from "lucide-react";
 import { HiOutlineChevronRight } from "react-icons/hi";
+import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const { token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
   return (
     <div className="max-w-md mx-auto bg-white min-h-screen p-4">
       {/* Header Section */}
@@ -86,7 +95,10 @@ const Profile = () => {
         </button>
 
         {/* Logout Section */}
-        <button className="w-full flex items-center justify-between p-3 hover:bg-gray-200 rounded-lg transition-colors">
+        <button
+          className="w-full flex items-center justify-between p-3 hover:bg-gray-200 rounded-lg transition-colors"
+          onClick={logout}
+        >
           <h2 className="text-red-500 font-rubik hover:text-red-700 ">
             LOGOUT{" "}
           </h2>

@@ -44,7 +44,7 @@ const List = ({ url }) => {
     <div className="flex flex-col items-center gap-6 px-4 py-8">
       <p className="text-xl font-bold">All Foods List</p>
 
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
         {list.map((item, index) => (
           <div
             key={index}

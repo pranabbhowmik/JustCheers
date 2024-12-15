@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { StoreContext } from "../../context/StoreContext";
 
 const LoginPopup = ({ setShowLoginPopup }) => {
+  const { url, setToken } = useContext(StoreContext);
   const [currState, setCurrState] = useState("Login");
   const [from, setFrom] = useState({
     name: "",
@@ -9,17 +13,45 @@ const LoginPopup = ({ setShowLoginPopup }) => {
     password: "",
   });
 
-  const handelfrom = (e) => {
+  const handelfrom = async (e) => {
     e.preventDefault();
-    console.log(from);
+    let newUrl = url;
+
+    try {
+      if (currState === "Login") {
+        // Use POST for Login (secure)
+        newUrl += "/api/user/login";
+        const response = await axios.post(newUrl, {
+          email: from.email,
+          password: from.password,
+        });
+
+        if (response.status >= 200 && response.status <= 300) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          toast.success(response.data.message);
+          setShowLoginPopup(false);
+        } else {
+          toast.error(response.data.message);
+        }
+      } else {
+        // Registration
+        newUrl += "/api/user/register";
+        const response = await axios.post(newUrl, from);
+
+        if (response.status >= 200 && response.status <= 300) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          toast.success(response.data.message);
+          setShowLoginPopup(false);
+        } else {
+          toast.error(response.data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
   };
-  useEffect(() => {
-    setFrom({
-      name: "",
-      email: "",
-      password: "",
-    });
-  }, [currState]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 grid place-items-center">

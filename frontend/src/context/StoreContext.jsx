@@ -1,10 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { food_list } from "../assets/assets";
+import axios from "axios";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
+  const url = "http://localhost:5000";
+  const [token, setToken] = useState("");
+  const [food_list, setFoodList] = useState([]);
 
   // ADD to CART
   const addToCart = async (itemId, size, price) => {
@@ -70,6 +74,26 @@ const StoreContextProvider = ({ children }) => {
     return totalAmount;
   };
 
+  const fetchFoodList = async () => {
+    try {
+      const response = await axios.get(`${url}/api/food/list`);
+      const data = response.data;
+      setFoodList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // when we reload the page, the jwtToken should be fetched from the localStorage
+  useEffect(() => {
+    async function fetchData() {
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token"));
+      }
+      await fetchFoodList();
+    }
+    fetchData();
+  }, [token]);
+
   const contextValue = {
     food_list,
     cartItems,
@@ -78,6 +102,9 @@ const StoreContextProvider = ({ children }) => {
     setCartItems,
     updateQuantity,
     getTotalCartAmount,
+    url,
+    token,
+    setToken,
   };
 
   return (

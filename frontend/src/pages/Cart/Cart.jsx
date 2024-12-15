@@ -10,6 +10,7 @@ const Cart = () => {
     food_list,
     updateQuantity,
     getTotalCartAmount,
+    url,
     removeFromCart,
   } = useContext(StoreContext);
   const [selectedTip, setSelectedTip] = useState(null); // Selected tip amount
@@ -44,7 +45,7 @@ const Cart = () => {
                   {/* Product Name */}
                   <div className="w-full sm:w-auto grid grid-cols-2">
                     <img
-                      src={item.image}
+                      src={`${url}/${item.image}`}
                       alt={item.name}
                       className="w-20 h-20"
                     />

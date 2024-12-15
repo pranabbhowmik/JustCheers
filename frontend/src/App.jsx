@@ -12,10 +12,13 @@ import Profile from "./pages/Profile/Profile";
 import Error from "./components/Error/Error";
 import SearchInput from "./pages/searchInput/SearchInput";
 import OrderDone from "./pages/orderDone/OrderDone";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   return (
     <>
+      <ToastContainer />
       {showLoginPopup ? (
         <LoginPopup setShowLoginPopup={setShowLoginPopup} />
       ) : (

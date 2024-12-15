@@ -11,7 +11,7 @@ const OrderDone = () => {
     <div className="flex flex-col items-center justify-center px-4 -mt-10 sm:px-6 lg:px-8">
       {/* Animation */}
       <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
-        <Lottie animationData={orderdonr} loop={true} />
+        <Lottie animationData={orderdonr} loop={true} size={20} />
       </div>
 
       {/* Title */}

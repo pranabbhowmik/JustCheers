@@ -11,13 +11,23 @@ const UserSchema = new Schema(
     email: {
       type: String,
       require: true,
+      unique: true,
     },
     password: {
       type: String,
       require: true,
     },
+    cartData: {
+      type: Object,
+      default: {},
+    },
+    isAdmin: {
+      type: Boolean,
+
+      default: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: true, minimize: false }
 );
 
 UserSchema.pre("save", async function (next) {

@@ -4,7 +4,8 @@ import { Plus, Minus } from "lucide-react";
 import { StoreContext } from "../../context/StoreContext";
 
 const FoodItem = ({ id, name, quantity, description, image }) => {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url } =
+    useContext(StoreContext);
   const [selectedSize, setSelectedSize] = useState(quantity[0].size);
   const [currentPrice, setCurrentPrice] = useState(quantity[0].price);
 
@@ -62,9 +63,9 @@ const FoodItem = ({ id, name, quantity, description, image }) => {
 
         {/* Image and Add button container */}
         <div className="flex flex-col items-end gap-2">
-          <div className="relative w-32 h-40">
+          <div className="relative w-32 h-48">
             <img
-              src={image}
+              src={`${url}/${image}`}
               alt={name}
               className="rounded-lg object-cover w-full h-full"
             />

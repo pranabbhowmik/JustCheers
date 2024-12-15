@@ -5,7 +5,7 @@ import { FaHome, FaWallet, FaCog, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 import { StoreContext } from "../../context/StoreContext";
 export default function Navbar({ setShowLoginPopup }) {
-  const { cartItems } = useContext(StoreContext);
+  const { cartItems, token, setToken } = useContext(StoreContext);
   const cartItemsCount = Object.values(cartItems).reduce(
     (total, item) => total + item.quantity,
     0
@@ -76,14 +76,38 @@ export default function Navbar({ setShowLoginPopup }) {
             </div>
 
             {/* Right Side Icons */}
-            <div className=" md:flex items-center space-x-4">
-              <button
-                className="px-6 py-2  text-red-600 border border-[#ff4533] rounded-full hover:bg-red-600 hover:text-white transition-colors"
-                onClick={() => setShowLoginPopup(true)}
-              >
-                sign in
-              </button>
-            </div>
+            {token ? (
+              <div className=" md:flex items-center space-x-4">
+                <NavLink
+                  to="/cart"
+                  type="button"
+                  className="inline-flex flex-col items-center invisible sm:visible justify-center px-5"
+                >
+                  {cartItemsCount > 0 && (
+                    <span className="font-robotoMono w-3 h-3 ml-9 font-bold">
+                      {cartItemsCount}
+                    </span>
+                  )}
+                  <ShoppingBag className="w-8 h-6 mb-2" />
+                </NavLink>
+                <NavLink
+                  type="button"
+                  to="/profile"
+                  className="inline-flex flex-col items-center justify-center mt-3 sm:mt-1 group"
+                >
+                  <FaUserCircle className="w-10 h-9 mb-2" />
+                </NavLink>
+              </div>
+            ) : (
+              <div className=" md:flex items-center space-x-4">
+                <button
+                  className="px-6 py-2  text-red-600 border border-[#ff4533] rounded-full hover:bg-red-600 hover:text-white transition-colors"
+                  onClick={() => setShowLoginPopup(true)}
+                >
+                  sign in
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -122,15 +146,24 @@ export default function Navbar({ setShowLoginPopup }) {
             <ShoppingBag className="w-5 h-5 mb-2" />
             <span className="text-sm">Cart</span>
           </NavLink>
-
-          <NavLink
-            type="button"
-            to="/profile"
-            className="inline-flex flex-col items-center justify-center px-5 hover:bg-red-500 hover:text-white group"
-          >
-            <FaUserCircle className="w-5 h-5 mb-2" />
-            <span className="text-sm">Profile</span>
-          </NavLink>
+          {token ? (
+            <NavLink
+              type="button"
+              to="/profile"
+              className="inline-flex flex-col items-center justify-center px-5 hover:bg-red-500 hover:text-white group"
+            >
+              <FaUserCircle className="w-5 h-5 mb-2" />
+              <span className="text-sm">Profile</span>
+            </NavLink>
+          ) : (
+            <button
+              className="inline-flex flex-col items-center justify-center px-5 hover:bg-red-500 hover:text-white group"
+              onClick={() => setShowLoginPopup(true)}
+            >
+              <FaUserCircle className="w-5 h-5 mb-2" />
+              <span className="text-sm">Sign In</span>
+            </button>
+          )}
         </div>
       </div>
     </>
