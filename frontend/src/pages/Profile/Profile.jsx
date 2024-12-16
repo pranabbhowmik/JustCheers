@@ -18,9 +18,8 @@ const Profile = () => {
       <div className="flex justify-between items-start mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-900 font-rubik">
-            PRANAB BHOWMIK
+            Welcom to Just Cheers 🍻
           </h1>
-          <p className="text-sm text-gray-600">bhowmiktukai610@gmail.com</p>
         </div>
       </div>
 

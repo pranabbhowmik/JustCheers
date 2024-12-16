@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
 import { Search, ShoppingBag, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaWallet, FaCog, FaUserCircle } from "react-icons/fa";
+import { FaHome, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 import { StoreContext } from "../../context/StoreContext";
 export default function Navbar({ setShowLoginPopup }) {
-  const { cartItems, token, setToken } = useContext(StoreContext);
+  const { cartItems, token, setToken, removeFromcart } =
+    useContext(StoreContext);
   const cartItemsCount = Object.values(cartItems).reduce(
-    (total, item) => total + item.quantity,
+    (total, item) => total + (item?.quantity || 0), // Safely check for quantity
     0
   );
+
   return (
     <>
       {/* Top Navigation Bar */}

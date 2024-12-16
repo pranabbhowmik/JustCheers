@@ -11,6 +11,7 @@ const Cart = () => {
     updateQuantity,
     getTotalCartAmount,
     url,
+    addToCart,
     removeFromCart,
   } = useContext(StoreContext);
   const [selectedTip, setSelectedTip] = useState(null); // Selected tip amount
@@ -35,7 +36,8 @@ const Cart = () => {
               const cartItem = cartItems[item._id];
 
               // Calculate the total price for the current item
-              const totalItemPrice = cartItem.price * cartItem.quantity;
+              const totalItemPrice =
+                (cartItem.price || 0) * (cartItem.quantity || 0);
 
               return (
                 <div
@@ -59,7 +61,7 @@ const Cart = () => {
                         {/* Decrease Button */}
                         <button
                           onClick={() =>
-                            updateQuantity(item._id, cartItem.quantity - 1)
+                            removeFromCart(item._id, item.size, item.price)
                           }
                           className="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
                         >
@@ -74,7 +76,7 @@ const Cart = () => {
                         {/* Increase Button */}
                         <button
                           onClick={() =>
-                            updateQuantity(item._id, cartItem.quantity + 1)
+                            addToCart(item._id, item.size, item.price)
                           }
                           className="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
                         >
