@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDb from "./db/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import authRouter from "./routes/authRouter.js";
+import cartRouter from "./routes/cartRouter.js";
 
 // app config
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 // app routes
 app.use("/api/food", foodRouter);
 app.use("/api/user", authRouter);
+app.use("/api/cart", cartRouter);
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
