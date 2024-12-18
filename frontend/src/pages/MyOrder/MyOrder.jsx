@@ -16,8 +16,6 @@ const MyOrder = () => {
         {},
         { headers: { token } }
       );
-      console.log("API Response:", response.data); // Log the API response
-      // Access the orders field from the response data
       setData(response.data.orders || []);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -32,11 +30,33 @@ const MyOrder = () => {
     }
   }, [token]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  const LoadingSkeleton = () => (
+    <div className="my-orders">
+      <h2>My Orders</h2>
+      <div className="container">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div
+            key={index}
+            className="my-orders-order animate-pulse bg-gray-200 rounded-md p-4"
+          >
+            <div className="w-12 h-12 bg-gray-300 rounded"></div>
+            <div className="flex flex-col gap-2">
+              <div className="h-4 w-3/4 bg-gray-300 rounded"></div>
+              <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
+            </div>
+            <div className="h-4 w-12 bg-gray-300 rounded"></div>
+            <div className="h-4 w-8 bg-gray-300 rounded"></div>
+            <div className="h-4 w-20 bg-gray-300 rounded"></div>
+            <div className="h-10 w-20 bg-gray-300 rounded"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
-  console.log("Orders Data:", data); // Log the data after it's set
+  if (loading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <div className="my-orders">
