@@ -37,7 +37,10 @@ const Profile = () => {
 
           <HiOutlineChevronRight className="h-5 w-5 text-gray-400 hover:text-gray-500" />
         </button>
-        <button className="w-full flex items-center justify-between p-3 hover:bg-gray-200  rounded-lg transition-colors">
+        <button
+          className="w-full flex items-center justify-between p-3 hover:bg-gray-200  rounded-lg transition-colors"
+          onClick={() => navigate("/myorder")}
+        >
           <div>
             <h2 className="text-gray-900 font-medium text-left hover:text-gray-500">
               Orders 🍺

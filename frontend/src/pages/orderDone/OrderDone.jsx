@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Lottie from "lottie-react";
 import { MdViewList } from "react-icons/md";
 import { FaShoppingBag } from "react-icons/fa";
 import orderdonr from "../../assets/orderDone.json";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 const OrderDone = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const success = searchParams.get("success");
+  const orderId = searchParams.get("orderId");
+  const url = "http://localhost:5000";
+
+  // payment verification
+  const verifyPayment = async () => {
+    const response = await axios.post(`${url}/api/order/verify`, {
+      orderId,
+      success,
+    });
+    if (response.data.success) {
+      console.log("Payment Successful");
+    } else {
+      console.log("Payment Failed");
+    }
+  };
+  useEffect(() => {
+    verifyPayment();
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center px-4 -mt-10 sm:px-6 lg:px-8">
       {/* Animation */}
@@ -28,7 +50,10 @@ const OrderDone = () => {
       {/* Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-xs sm:max-w-md">
         {/* View Order Button */}
-        <button className="relative w-full flex h-14 items-center justify-center overflow-hidden font-medium rounded-3xl transition-all bg-white hover:bg-white group py-2 px-6 border border-gray-300">
+        <button
+          className="relative w-full flex h-14 items-center justify-center overflow-hidden font-medium rounded-3xl transition-all bg-white hover:bg-white group py-2 px-6 border border-gray-300"
+          onClick={() => navigate("/myorder")}
+        >
           {/* Hover Background */}
           <span className="absolute inset-0 bg-red-500 transition-transform duration-500 transform translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0"></span>
           {/* Icon and Text */}

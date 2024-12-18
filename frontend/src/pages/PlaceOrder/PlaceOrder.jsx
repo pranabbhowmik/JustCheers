@@ -1,15 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import "animate.css";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { FaGooglePay } from "react-icons/fa";
 import { SiPhonepe } from "react-icons/si";
+import axios from "axios";
 
 const PlaceOrder = () => {
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, token, url, food_list, cartItems } =
+    useContext(StoreContext);
   const [selectedTip, setSelectedTip] = useState(null); // Selected tip amount
-  const [form, setForm] = useState({
+  const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -26,6 +28,55 @@ const PlaceOrder = () => {
 
   const tipOptions = [20, 30, 50, 60]; // Tip options
 
+  // handelChange function
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setData((data) => ({ ...data, [name]: value }));
+  };
+  //  Place order function
+  const placeOrder = async (event) => {
+    event.preventDefault();
+    let orderItems = [];
+
+    food_list.forEach((item) => {
+      const cartItem = cartItems[item._id];
+
+      if (cartItem) {
+        // Create a deep copy of the item
+        let itemInfo = { ...item };
+        // Add additional properties from cartItem
+        itemInfo.quantity = cartItem.quantity;
+        itemInfo.size = cartItem.size;
+        itemInfo.price = cartItem.price;
+        // Add the modified item to the orderItems array
+        orderItems.push(itemInfo);
+      }
+    });
+
+    let orderData = {
+      address: data,
+      items: orderItems,
+      amount:
+        getTotalCartAmount() +
+        25 +
+        (selectedTip || 0) +
+        5 +
+        getTotalCartAmount() * 0.03,
+    };
+    let response = await axios.post(`${url}/api/order/placeorder`, orderData, {
+      headers: { token },
+    });
+    if (response.data.success) {
+      const { session_url } = response.data;
+
+      window.location.replace(session_url);
+    } else {
+      alert("Order failed");
+    }
+  };
+
   const handleTipSelect = (amount) => {
     if (selectedTip === amount) {
       setSelectedTip(null); // Deselect if clicked twice
@@ -34,13 +85,7 @@ const PlaceOrder = () => {
     }
   };
 
-  const handleProceedToPayment = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setShowPayment(true);
-    }, 3000); // Simulates a 3-second loading delay
-  };
+ 
   const handleBuyNow = () => {
     setLoading(true);
     setTimeout(() => {
@@ -49,30 +94,11 @@ const PlaceOrder = () => {
     }, 3000); // Delay of 3 seconds
   };
 
-  const handelform = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
-
-  useEffect(() => {
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      street: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      landmark: "",
-      phone: "",
-    });
-  }, []);
-
   return (
     <>
       <form
         className="flex flex-col lg:flex-row lg:gap-12 mt-12 px-4"
-        onSubmit={handelform}
+        onSubmit={placeOrder}
       >
         {/* Left Section: Delivery Information */}
         <div className="w-full lg:w-1/2">
@@ -84,10 +110,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="firstName"
-                value={form.firstName}
-                onChange={(e) =>
-                  setForm({ ...form, firstName: e.target.value })
-                }
+                onChange={handleChange}
+                value={data.firstName}
                 type="text"
                 placeholder="First Name"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -95,8 +119,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="lastName"
-                value={form.lastName}
-                onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                onChange={handleChange}
+                value={data.lastName}
                 type="text"
                 placeholder="Last Name"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -105,8 +129,8 @@ const PlaceOrder = () => {
             <input
               required
               name="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              onChange={handleChange}
+              value={data.email}
               type="email"
               placeholder="Email address"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -114,8 +138,8 @@ const PlaceOrder = () => {
             <input
               required
               name="street"
-              value={form.street}
-              onChange={(e) => setForm({ ...form, street: e.target.value })}
+              onChange={handleChange}
+              value={data.street}
               type="text"
               placeholder="Street Address"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -124,8 +148,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="city"
-                value={form.city}
-                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                onChange={handleChange}
+                value={data.city}
                 type="text"
                 placeholder="City"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -133,8 +157,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="state"
-                value={form.state}
-                onChange={(e) => setForm({ ...form, state: e.target.value })}
+                onChange={handleChange}
+                value={data.state}
                 type="text"
                 placeholder="State"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -144,8 +168,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="zipCode"
-                value={form.zipCode}
-                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                onChange={handleChange}
+                value={data.zipCode}
                 type="text"
                 placeholder="Zip code"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -153,8 +177,8 @@ const PlaceOrder = () => {
               <input
                 required
                 name="landmark"
-                value={form.landmark}
-                onChange={(e) => setForm({ ...form, landmark: e.target.value })}
+                onChange={handleChange}
+                value={data.landmark}
                 type="text"
                 placeholder="Landmark"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -163,8 +187,8 @@ const PlaceOrder = () => {
             <input
               required
               name="phone"
-              value={form.phone}
-              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              onChange={handleChange}
+              value={data.phone}
               type="text"
               placeholder="Phone"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -240,7 +264,7 @@ const PlaceOrder = () => {
 
           <button
             className="w-full bg-red-500 text-white rounded-lg p-2 mt-4"
-            onClick={handleProceedToPayment}
+            type="submit"
           >
             Proceed to Payment
           </button>

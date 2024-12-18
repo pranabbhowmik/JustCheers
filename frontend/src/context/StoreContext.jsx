@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list } from "../assets/assets";
 import axios from "axios";
 
 export const StoreContext = createContext(null);
@@ -8,6 +7,7 @@ const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const url = "http://localhost:5000";
   const [token, setToken] = useState("");
+
   const [food_list, setFoodList] = useState([]);
 
   // ADD to CART
@@ -15,13 +15,25 @@ const StoreContextProvider = ({ children }) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({
         ...prev,
-        [itemId]: { quantity: 1, size, price },
+        [itemId]: { quantity: 1, size, price: price || 0 }, // Ensure price is valid
       }));
     } else {
       setCartItems((prev) => ({
         ...prev,
-        [itemId]: { quantity: prev[itemId].quantity + 1, size, price },
+        [itemId]: {
+          ...prev[itemId],
+          quantity: prev[itemId].quantity + 1,
+          size: size || prev[itemId].size, // Retain the existing size
+          price: price || prev[itemId].price, // Retain the existing price
+        },
       }));
+    }
+    if (token) {
+      await axios.post(
+        `${url}/api/cart/add`,
+        { itemId, size, price },
+        { headers: { token } }
+      );
     }
   };
 
@@ -44,6 +56,10 @@ const StoreContextProvider = ({ children }) => {
 
       return newCart;
     });
+    if (token) {
+      axios.post(`${url}/api/cart/remove`, { itemId }, { headers: { token } });
+    }
+    console.log("Removed from cart:", token);
   };
 
   // Add the updateQuantity function in StoreContextProvider
@@ -51,14 +67,13 @@ const StoreContextProvider = ({ children }) => {
     setCartItems((prev) => {
       const updatedCart = { ...prev };
 
-      if (updatedCart[itemId]) {
-        if (newQuantity <= 0) {
-          // Remove item if the new quantity is 0 or less
-          delete updatedCart[itemId];
-        } else {
-          // Update the quantity
-          updatedCart[itemId].quantity = newQuantity;
-        }
+      if (newQuantity <= 0) {
+        delete updatedCart[itemId];
+      } else {
+        updatedCart[itemId] = {
+          ...updatedCart[itemId],
+          quantity: newQuantity,
+        };
       }
 
       return updatedCart;
@@ -66,12 +81,37 @@ const StoreContextProvider = ({ children }) => {
   };
 
   const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const itemId in cartItems) {
-      const cartItem = cartItems[itemId]; // Get the cart item object
-      totalAmount += cartItem.price * cartItem.quantity; // Multiply price by quantity
+    return Object.values(cartItems).reduce((total, item) => {
+      // Ensure item and item.price exist before trying to access item.price
+      const price = item?.price ?? 0; // Default to 0 if item or item.price is null/undefined
+      const quantity = item?.quantity ?? 0; // Default to 0 if quantity is null/undefined
+
+      return total + price * quantity; // Calculate total cart amount
+    }, 0);
+  };
+
+  const loadCartData = async (token) => {
+    try {
+      const response = await axios.get(`${url}/api/cart/get`, {
+        headers: { token },
+      });
+      const serverCartData = response.data.cartData;
+
+      // Fallback to empty object if serverCartData is invalid
+      const validCartData = serverCartData || {};
+
+      // Update state and localStorage
+      setCartItems(validCartData);
+      localStorage.setItem("cartItems", JSON.stringify(validCartData));
+    } catch (error) {
+      console.error("Error loading cart data:", error);
+
+      // Fallback to localStorage if API fails
+      const storedCart = localStorage.getItem("cartItems");
+      if (storedCart) {
+        setCartItems(JSON.parse(storedCart));
+      }
     }
-    return totalAmount;
   };
 
   const fetchFoodList = async () => {
@@ -83,16 +123,28 @@ const StoreContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-  // when we reload the page, the jwtToken should be fetched from the localStorage
+
   useEffect(() => {
-    async function fetchData() {
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-      }
+    const storedToken = localStorage.getItem("token");
+    const storedCartItems = localStorage.getItem("cartItems");
+
+    async function loadData() {
       await fetchFoodList();
+
+      if (storedToken) {
+        setToken(storedToken);
+        // Fetch data from the server if token is available
+        await loadCartData(storedToken);
+      } else {
+        console.log("Token not found!");
+        // You can load cart from localStorage as a fallback when no token
+        if (storedCartItems) {
+          setCartItems(JSON.parse(storedCartItems)); // Set cart items from localStorage
+        }
+      }
     }
-    fetchData();
-  }, [token]);
+    loadData();
+  }, []);
 
   const contextValue = {
     food_list,

@@ -14,6 +14,7 @@ import SearchInput from "./pages/searchInput/SearchInput";
 import OrderDone from "./pages/orderDone/OrderDone";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MyOrder from "./pages/MyOrder/MyOrder";
 function App() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/orderdone" element={<OrderDone />} />
+          <Route path="/myorder" element={<MyOrder />} />
           <Route path="/search" element={<SearchInput />} />
         </Routes>
         <Footer />
