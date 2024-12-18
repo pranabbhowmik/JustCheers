@@ -2,7 +2,7 @@
 
 **An Alcohol Delivery App**  
 [Visit the App](https://just-cheers.onrender.com/)
-
+Only Frontent : https://justcheers.netlify.app/
 ---
 
 ## Screenshots
