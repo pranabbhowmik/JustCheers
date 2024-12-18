@@ -6,7 +6,7 @@ import { Add, List, Orders } from "./pages/pages.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const App = () => {
-  const url = "http://localhost:5000";
+  const url = "https://just-cheers-backend.onrender.com";
   return (
     <>
       <ToastContainer />
