@@ -1,6 +1,5 @@
 import { assets } from "../../assets/assets";
 import { Search } from "lucide-react";
-import "./AppDownload.css";
 
 const AppDownload = () => {
   return (
