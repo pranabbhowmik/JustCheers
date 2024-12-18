@@ -43,7 +43,7 @@ Only Frontent : https://justcheers.netlify.app/
 - **Frontend**: React, Tailwind CSS
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
-- **Hosting**: Netlify for frontend, Heroku for backend
+- **Hosting**: Netlify for frontend, Render for backend
 
 ---
 
