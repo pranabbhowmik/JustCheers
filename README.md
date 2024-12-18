@@ -1,7 +1,7 @@
 # Just Cheers 🍻
 
 **An Alcohol Delivery App**  
-[Visit the App UI](https://justcheers.netlify.app/)
+[Visit the App](https://just-cheers.onrender.com/)
 
 ---
 
@@ -46,9 +46,4 @@
 
 ---
 
-## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/just-cheers.git
-   cd just-cheers
