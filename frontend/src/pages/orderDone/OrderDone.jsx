@@ -13,8 +13,8 @@ const OrderDone = () => {
   const [isAudioReady, setIsAudioReady] = useState(false);
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
-  // const url = "https://just-cheers-backend.onrender.com";
-  const url = "http://localhost:5000";
+  const url = "https://just-cheers-backend.onrender.com";
+  // const url = "http://localhost:5000";
 
   const verifyPayment = async () => {
     const response = await axios.post(`${url}/api/order/verify`, {
