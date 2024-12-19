@@ -7,7 +7,8 @@ const stripe = new Stripe(process.env.STRIPEKEY);
 
 // placing user order for foontend
 const placeOrder = async (req, res) => {
-  const url = "https://just-cheers.onrender.com/orderdone";
+  // const url = "https://just-cheers.onrender.com/orderdone";
+  const url = "http://localhost:5173/orderdone";
   try {
     if (!req.userId) {
       return res.status(400).json({ message: "User ID is missing" });

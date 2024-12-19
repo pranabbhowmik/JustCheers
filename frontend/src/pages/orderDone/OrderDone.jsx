@@ -11,7 +11,8 @@ const OrderDone = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
-  const url = "https://just-cheers-backend.onrender.com";
+  // const url = "https://just-cheers-backend.onrender.com";
+  const url = "http://localhost:5000";
 
   // payment verification
   const verifyPayment = async () => {
