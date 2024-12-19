@@ -35,10 +35,8 @@
 .my-orders-order button {
   border: none;
   padding: 12px 4px;
-  border-radius: 4px;
-  background-color: #ffe1e1;
+  border-radius: 8px;
   cursor: pointer;
-  color: #454545;
 }
 
 @media (max-width: 900px) {

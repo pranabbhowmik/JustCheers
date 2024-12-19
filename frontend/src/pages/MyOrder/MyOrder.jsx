@@ -84,7 +84,9 @@ const MyOrder = () => {
                 <span>&#x25cf; </span>
                 <b>{order.status}</b>
               </p>
-              <button onClick={getMyOrders}>Track Order</button>
+              <button onClick={getMyOrders} className="bg-red-500 text-white">
+                Track Order
+              </button>
             </div>
           ))
         ) : (
