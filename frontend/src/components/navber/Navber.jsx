@@ -7,6 +7,7 @@ import { StoreContext } from "../../context/StoreContext";
 export default function Navbar({ setShowLoginPopup }) {
   const { cartItems, token, setToken, removeFromcart } =
     useContext(StoreContext);
+
   const cartItemsCount = Object.values(cartItems).reduce(
     (total, item) => total + (item?.quantity || 0), // Safely check for quantity
     0
@@ -140,11 +141,12 @@ export default function Navbar({ setShowLoginPopup }) {
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-red-500 hover:text-white "
           >
-            {cartItemsCount > 0 && (
+            {token && cartItemsCount > 0 && (
               <span className="font-robotoMono w-3 h-3 ml-9 font-bold">
                 {cartItemsCount}
               </span>
             )}
+
             <ShoppingBag className="w-5 h-5 mb-2" />
             <span className="text-sm">Cart</span>
           </NavLink>
