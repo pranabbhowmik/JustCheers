@@ -67,12 +67,11 @@ const MyOrder = () => {
             <div key={index} className="my-orders-order">
               <img src={assets.parcel_icon} alt="" />
               <div>
-                <h4>Products:</h4>
                 <ul>
                   {order.items &&
                     order.items.map((item, index) => (
                       <li key={index} className="product-detail">
-                        {item.name} - Quantity: {item.quantity}, Size:{" "}
+                        {item.name} - Quantity:{item.quantity}, Size:{" "}
                         {item.size}
                       </li>
                     ))}
@@ -86,7 +85,7 @@ const MyOrder = () => {
               </p>
               <button
                 onClick={getMyOrders}
-                className="bg-gradient-to-r w-20 from-red-500 to-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-md relative group"
+                className="bg-gradient-to-r w-20 sm:w-28 from-red-500 to-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-md relative group"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity text-white"></span>
                 Track Order
