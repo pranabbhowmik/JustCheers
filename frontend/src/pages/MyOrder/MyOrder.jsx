@@ -84,7 +84,11 @@ const MyOrder = () => {
                 <span>&#x25cf; </span>
                 <b>{order.status}</b>
               </p>
-              <button onClick={getMyOrders} className="bg-red-500 text-white">
+              <button
+                onClick={getMyOrders}
+                className="bg-gradient-to-r w-20 from-red-500 to-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-md relative group"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity text-white"></span>
                 Track Order
               </button>
             </div>
