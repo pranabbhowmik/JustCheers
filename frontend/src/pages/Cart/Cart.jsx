@@ -167,91 +167,96 @@ const Cart = () => {
       </div>
       <br />
       <hr className="bg-gray-50 h-1 " />
-      <div className="bg-gray-100 shadow-md rounded-lg p-4 mt-4">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">
-          Bill Details
-        </h2>
-        <div className="space-y-3 text-gray-600 text-sm">
-          {/* Item Total */}
-          <div className="flex justify-between">
-            <span>Item Total</span>
-            <span className="font-semibold text-gray-800">
-              ₹{getTotalCartAmount()}
-            </span>
-          </div>
 
-          {/* Delivery Fee */}
-          <div className="flex justify-between items-center">
-            <span>
-              Delivery Fee
-              <span className="text-xs text-gray-400 block">
-                This fee fairly goes to our delivery partners for delivering
-                your food
-              </span>
-            </span>
-            <span className="font-semibold text-gray-800">₹{25}</span>
-          </div>
+      {getTotalCartAmount() > 0 && (
+        <div>
+          <div className="bg-gray-100 shadow-md rounded-lg p-4 mt-4">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Bill Details
+            </h2>
+            <div className="space-y-3 text-gray-600 text-sm">
+              {/* Item Total */}
+              <div className="flex justify-between">
+                <span>Item Total</span>
+                <span className="font-semibold text-gray-800">
+                  ₹{getTotalCartAmount()}
+                </span>
+              </div>
 
-          {/* Extra Discount if the Promo code is applied */}
-          {/* <div className="flex justify-between">
+              {/* Delivery Fee */}
+              <div className="flex justify-between items-center">
+                <span>
+                  Delivery Fee
+                  <span className="text-xs text-gray-400 block">
+                    This fee fairly goes to our delivery partners for delivering
+                    your food
+                  </span>
+                </span>
+                <span className="font-semibold text-gray-800">₹{25}</span>
+              </div>
+
+              {/* Extra Discount if the Promo code is applied */}
+              {/* <div className="flex justify-between">
             <span>Extra discount for you</span>
             <span className="font-semibold text-red-500">-₹25</span>
           </div> */}
 
-          {/* Delivery Tip */}
-          <div className="flex justify-between">
-            <span>Delivery Tip</span>
-            <span className="font-semibold text-gray-800">
-              ₹{selectedTip || 0}
-            </span>
-          </div>
+              {/* Delivery Tip */}
+              <div className="flex justify-between">
+                <span>Delivery Tip</span>
+                <span className="font-semibold text-gray-800">
+                  ₹{selectedTip || 0}
+                </span>
+              </div>
 
-          {/* Platform Fee */}
-          <div className="flex justify-between">
-            <span>Platform fee</span>
-            <span className="font-semibold text-gray-800">₹5.00</span>
-          </div>
+              {/* Platform Fee */}
+              <div className="flex justify-between">
+                <span>Platform fee</span>
+                <span className="font-semibold text-gray-800">₹5.00</span>
+              </div>
 
-          {/* GST and Restaurant Charges */}
-          <div className="flex justify-between">
-            <span>GST Charges</span>
-            <span className="font-semibold text-gray-800">
-              ₹{getTotalCartAmount() * 0.05}
-            </span>
+              {/* GST and Restaurant Charges */}
+              <div className="flex justify-between">
+                <span>GST Charges</span>
+                <span className="font-semibold text-gray-800">
+                  ₹{getTotalCartAmount() * 0.05}
+                </span>
+              </div>
+            </div>
+
+            {/* Total */}
+            <div className="mt-4 border-t pt-3">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-gray-500 text-sm line-through">
+                  ₹
+                  {getTotalCartAmount() +
+                    25 +
+                    (selectedTip || 0) +
+                    5 +
+                    getTotalCartAmount() * 0.03}
+                </span>
+                <span className="font-semibold text-xl text-gray-800">
+                  ₹
+                  {getTotalCartAmount() +
+                    25 +
+                    (selectedTip || 0) -
+                    5 +
+                    getTotalCartAmount() * 0.03}
+                </span>
+              </div>
+              <div className="text-green-500 text-sm font-medium">
+                You save ₹{10}
+              </div>
+            </div>
           </div>
+          <button
+            className="w-full bg-red-500 text-white rounded-lg p-2 mt-4"
+            onClick={() => navigate("/order")}
+          >
+            Proceed to Checkout
+          </button>
         </div>
-
-        {/* Total */}
-        <div className="mt-4 border-t pt-3">
-          <div className="flex justify-between items-center">
-            <span className="font-semibold text-gray-500 text-sm line-through">
-              ₹
-              {getTotalCartAmount() +
-                25 +
-                (selectedTip || 0) +
-                5 +
-                getTotalCartAmount() * 0.03}
-            </span>
-            <span className="font-semibold text-xl text-gray-800">
-              ₹
-              {getTotalCartAmount() +
-                25 +
-                (selectedTip || 0) -
-                5 +
-                getTotalCartAmount() * 0.03}
-            </span>
-          </div>
-          <div className="text-green-500 text-sm font-medium">
-            You save ₹{10}
-          </div>
-        </div>
-      </div>
-      <button
-        className="w-full bg-red-500 text-white rounded-lg p-2 mt-4"
-        onClick={() => navigate("/order")}
-      >
-        Proceed to Checkout
-      </button>
+      )}
     </div>
   );
 };

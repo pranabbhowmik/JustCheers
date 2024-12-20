@@ -25,16 +25,16 @@ const PlaceOrder = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const tipOptions = [20, 30, 50, 60];
+  // const tipOptions = [20, 30, 50, 60];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleTipSelect = (amount) => {
-    setSelectedTip((prev) => (prev === amount ? null : amount));
-  };
+  // const handleTipSelect = (amount) => {
+  //   setSelectedTip((prev) => (prev === amount ? null : amount));
+  // };
 
   const handeladdress = async () => {
     if (!data.zipCode) return;
@@ -220,75 +220,58 @@ const PlaceOrder = () => {
 
       {/* Tips & Bill Details */}
       <div className="w-full lg:w-1/2 flex flex-col gap-6">
-        {/* Tip Section */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold text-gray-800">
-            Say thanks with a Tip!
-          </h2>
-          <div className="flex gap-2 flex-wrap mt-4">
-            {tipOptions.map((amount) => (
-              <button
-                key={amount}
-                onClick={() => handleTipSelect(amount)}
-                className={`py-2 px-4 rounded-md border transition-colors w-[22%] ${
-                  selectedTip === amount
-                    ? "bg-red-500 border-red-500 text-white"
-                    : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                ₹{amount}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Bill Details */}
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            Bill Details
-          </h2>
-          <div className="text-gray-600 text-sm space-y-2">
-            <div>Total Amount: ₹{getTotalCartAmount()}</div>
-            <div>Delivery Charges: ₹25</div>
-            <div>Tip: ₹{selectedTip || 0}</div>
-            <div>Tax: ₹{(getTotalCartAmount() * 0.03).toFixed(2)}</div>
-            <div>Discount: ₹5</div>
-          </div>
-          <div className="mt-4 border-t pt-3">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500 line-through text-sm">
-                ₹
-                {(
-                  getTotalCartAmount() +
-                  25 +
-                  (selectedTip || 0) +
-                  getTotalCartAmount() * 0.03
-                ).toFixed(2)}
-              </span>
-              <span className="font-bold text-xl text-gray-800">
-                ₹
-                {(
-                  getTotalCartAmount() +
-                  25 +
-                  (selectedTip || 0) -
-                  5 +
-                  getTotalCartAmount() * 0.03
-                ).toFixed(2)}
-              </span>
+        {/* Conditionally render the bill section */}
+        {getTotalCartAmount() > 0 && (
+          <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Bill Details
+            </h2>
+            <div className="text-gray-600 text-sm space-y-2">
+              <div>Total Amount: ₹{getTotalCartAmount()}</div>
+              <div>Delivery Charges: ₹25</div>
+              <div>Tip: ₹{selectedTip || 0}</div>
+              <div>Tax: ₹{(getTotalCartAmount() * 0.03).toFixed(2)}</div>
+              <div>Discount: ₹5</div>
             </div>
-            <div className="text-green-500 text-sm font-medium">
-              You save ₹10
+            <div className="mt-4 border-t pt-3">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 line-through text-sm">
+                  ₹
+                  {(
+                    getTotalCartAmount() +
+                    25 +
+                    (selectedTip || 0) +
+                    getTotalCartAmount() * 0.03
+                  ).toFixed(2)}
+                </span>
+                <span className="font-bold text-xl text-gray-800">
+                  ₹
+                  {(
+                    getTotalCartAmount() +
+                    25 +
+                    (selectedTip || 0) -
+                    5 +
+                    getTotalCartAmount() * 0.03
+                  ).toFixed(2)}
+                </span>
+              </div>
+              <div className="text-green-500 text-sm font-medium">
+                You save ₹10
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        <button
-          className="w-full bg-red-500 text-white rounded-lg p-2 mt-4"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Placing Order..." : "Place Order"}
-        </button>
+        {/* Place Order button */}
+        {getTotalCartAmount() > 0 && (
+          <button
+            className="w-full bg-red-500 text-white rounded-lg p-2 mt-4"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Placing Order..." : "Place Order"}
+          </button>
+        )}
       </div>
     </form>
   );
