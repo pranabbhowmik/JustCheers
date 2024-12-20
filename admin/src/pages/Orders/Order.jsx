@@ -59,7 +59,8 @@ const Order = ({ url }) => {
                   <p className="font-semibold mb-2">
                     {order.items.map((item, idx) => (
                       <span key={idx}>
-                        {item.name} x {item.quantity}
+                        {item.name} x {item.quantity}{" "}
+                        {item.size && `(${item.size})`}
                         {idx !== order.items.length - 1 && ", "}
                       </span>
                     ))}

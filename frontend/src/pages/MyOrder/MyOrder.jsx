@@ -66,20 +66,20 @@ const MyOrder = () => {
           data.map((order, index) => (
             <div key={index} className="my-orders-order">
               <img src={assets.parcel_icon} alt="" />
-              <p>
-                {order.items &&
-                  order.items.map((item, index) => {
-                    if (index === order.items.length - 1) {
-                      return (
-                        item.name + " x " + item.quantity + " x " + item.size
-                      );
-                    } else {
-                      return item.name + " x " + item.quantity + ", ";
-                    }
-                  })}
-              </p>
+              <div>
+                <h4>Products:</h4>
+                <ul>
+                  {order.items &&
+                    order.items.map((item, index) => (
+                      <li key={index} className="product-detail">
+                        {item.name} - Quantity: {item.quantity}, Size:{" "}
+                        {item.size}
+                      </li>
+                    ))}
+                </ul>
+              </div>
               <p>₹{order.amount}.00</p>
-              <p>items: {order.items.length}</p>
+              <p>Total items: {order.items.length}</p>
               <p>
                 <span>&#x25cf; </span>
                 <b>{order.status}</b>
