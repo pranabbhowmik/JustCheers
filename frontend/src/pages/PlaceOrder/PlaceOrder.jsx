@@ -219,7 +219,7 @@ const PlaceOrder = () => {
       </div>
 
       {/* Tips & Bill Details */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-6">
+      <div className="w-full mt-5 sm:mt-0 lg:w-1/2 flex flex-col gap-6">
         {/* Conditionally render the bill section */}
         {getTotalCartAmount() > 0 && (
           <div className="bg-gray-100 p-4 rounded-lg shadow-md">
