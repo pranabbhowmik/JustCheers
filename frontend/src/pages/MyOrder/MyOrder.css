@@ -24,7 +24,7 @@
   width: 50px;
 }
 .my-orders-order p span {
-  color: red;
+  color: tomato;
 }
 
 .my-orders p b {
@@ -36,21 +36,17 @@
   border: none;
   padding: 12px 4px;
   border-radius: 8px;
+
   cursor: pointer;
-}
-.product-detail {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #555;
 }
 
 @media (max-width: 900px) {
   .my-orders-order {
-    grid-template-columns: 1fr 1.5fr 0.5fr;
+    grid-template-columns: 1fr 2fr 1fr;
     row-gap: 5px;
     font-size: 12px;
   }
-  .my-orders-order p {
-    white-space: nowrap; /* Prevent text wrapping */
+  .my-orders-order button {
+    font-size: 10px;
   }
 }
