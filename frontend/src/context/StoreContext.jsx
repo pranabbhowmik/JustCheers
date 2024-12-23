@@ -5,7 +5,8 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "https://just-cheers-backend.onrender.com";
+  // const url = "https://just-cheers-backend.onrender.com";
+   const url = "https://just-cheers-backend.vercel.app/";
   // const url = "http://localhost:5000";
   const [token, setToken] = useState("");
 
