@@ -117,8 +117,10 @@ const Cart = () => {
           </div>
         )}
       </div>
+
       <div className="bg-white shadow-md rounded-lg p-4 mt-4">
         {/* Responsive container */}
+
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-4">
             <BadgePercent className="w-6 h-6" />
