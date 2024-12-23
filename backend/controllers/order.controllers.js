@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPEKEY);
 
 // placing user order for foontend
 const placeOrder = async (req, res) => {
-  const url = "https://justcheers.vercel.app//orderdone";
+  const url = "https://just-cheers.onrender.com/orderdone";
   // const url = "http://localhost:5173/orderdone";
   try {
     if (!req.userId) {
