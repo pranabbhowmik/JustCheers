@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { assets } from "../../assets/assets.js";
 import { toast } from "react-toastify";
+import { AiFillDelete } from "react-icons/ai";
 
 const Order = ({ url }) => {
   const [data, setData] = useState([]); // Initialize as an empty array
@@ -19,6 +20,22 @@ const Order = ({ url }) => {
     } catch (error) {
       console.error("Error fetching orders:", error);
       toast.error("Failed to fetch orders");
+    }
+  };
+  const removeorders = async (orderId) => {
+    try {
+      const response = await axios.post(`${url}/api/order/removeorder`, null, {
+        params: { id: orderId },
+      });
+      await fetchOrders();
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Order Delete successfully");
+      } else {
+        toast.error("Failed to remove order");
+      }
+    } catch (error) {
+      console.log("Deleteing order problem", error);
+      toast.error("Failed to deleting orders");
     }
   };
 
@@ -81,21 +98,30 @@ const Order = ({ url }) => {
                 </div>
                 <p className="text-center">Total-Items: {order.items.length}</p>
                 <p className="text-center">₹{order.amount}</p>
-                <select
-                  onChange={(event) => updateStatus(event, order._id)}
-                  value={order.status}
-                  className="bg-red-500 text-white border border-red-500 rounded-md p-2 w-full sm:w-32 outline-none"
-                >
-                  <option value="Order accepted">Order accepted</option>
-                  <option value="Picked Up by Delivery Boy">
-                    Picked Up by Delivery Boy
-                  </option>
-                  <option value="Delivery in Progress">
-                    Delivery in Progress
-                  </option>
-                  <option value="Out for Delivery">Out for Delivery</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
+                <div className="flex gap-4">
+                  <select
+                    onChange={(event) => updateStatus(event, order._id)}
+                    value={order.status}
+                    className="bg-red-500 text-white border border-red-500 rounded-md p-2 w-full sm:w-32 outline-none"
+                  >
+                    <option value="Order accepted">Order accepted</option>
+                    <option value="Picked Up by Delivery Boy">
+                      Picked Up by Delivery Boy
+                    </option>
+                    <option value="Delivery in Progress">
+                      Delivery in Progress
+                    </option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                  <button
+                    title="Remove Drink"
+                    className="text-red-500 hover:text-red-700"
+                    onClick={() => removeorders(order._id)}
+                  >
+                    <AiFillDelete size={28} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

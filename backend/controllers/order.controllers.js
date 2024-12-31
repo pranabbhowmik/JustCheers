@@ -89,7 +89,7 @@ const placeOrder = async (req, res) => {
 
 // verify order
 const verifyOrder = async (req, res) => {
-  const { orderId, success } = req.body;
+  const { orderId, success } = req.query;
   try {
     if (success === "true" || success === true) {
       await Order.findByIdAndUpdate(orderId, { payment: true });
@@ -124,6 +124,19 @@ const listorders = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+// remove orders from admin
+const removeorder = async (req, res) => {
+  try {
+    console.log("order Remove id", req.query.id);
+    await Order.findByIdAndDelete(req.query.id);
+    res.json({ success: true, message: "Order Deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // oredr status update
 const updateStatus = async (req, res) => {
   try {
@@ -137,4 +150,11 @@ const updateStatus = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder, userOrders, listorders, updateStatus };
+export {
+  placeOrder,
+  verifyOrder,
+  userOrders,
+  listorders,
+  updateStatus,
+  removeorder,
+};
