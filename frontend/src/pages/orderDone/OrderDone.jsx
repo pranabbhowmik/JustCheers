@@ -21,18 +21,13 @@ const OrderDone = () => {
       orderId,
       success,
     });
+
     if (response.data.success) {
-      console.log("Payment Successful");
       setIsAudioReady(true);
     } else {
-      console.log("Payment Failed");
+      navigate("/error");
     }
   };
-
-  useEffect(() => {
-    verifyPayment();
-  }, []);
-
   const playAudio = () => {
     if (isAudioReady) {
       const audio = new Audio(orderdonemusic);
@@ -40,10 +35,15 @@ const OrderDone = () => {
     }
   };
 
+  useEffect(() => {
+    playAudio();
+    verifyPayment();
+  }, []);
+
   return (
     <div
       className="flex flex-col items-center justify-center px-4 -mt-10 sm:px-6 lg:px-8"
-      onClick={playAudio} // Trigger audio on user interaction
+      // Trigger audio on user interaction
     >
       {/* Animation */}
       <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">

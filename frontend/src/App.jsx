@@ -32,12 +32,12 @@ function App() {
           <Route path="/menu" element={<ExploreMenu />} />
           <Route path="/mobile-app" element={<AppDownload />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/*" element={<Error />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/orderdone" element={<OrderDone />} />
           <Route path="/myorder" element={<MyOrder />} />
           <Route path="/search" element={<SearchInput />} />
+          <Route path="/*" element={<Error />} />
         </Routes>
         <Footer />
       </div>

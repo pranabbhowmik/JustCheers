@@ -77,7 +77,7 @@ const placeOrder = async (req, res) => {
       line_items,
       mode: "payment",
       success_url: `${url}?success=true&orderId=${newOrder._id}`,
-      cancel_url: `${url}/verify?success=false&orderId=${newOrder._id}`,
+      cancel_url: `${url}?success=false&orderId=${newOrder._id}`,
     });
 
     res.json({ success: true, session_url: session.url });
@@ -89,7 +89,8 @@ const placeOrder = async (req, res) => {
 
 // verify order
 const verifyOrder = async (req, res) => {
-  const { orderId, success } = req.query;
+  const { orderId, success } = req.body;
+  console.log(orderId, success);
   try {
     if (success === "true" || success === true) {
       await Order.findByIdAndUpdate(orderId, { payment: true });
