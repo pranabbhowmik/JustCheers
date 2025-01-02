@@ -25,7 +25,7 @@ const OrderDone = () => {
     if (response.data.success) {
       setIsAudioReady(true);
     } else {
-      navigate("/*");
+      navigate("/error");
     }
   };
   const playAudio = () => {
