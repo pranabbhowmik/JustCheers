@@ -67,6 +67,9 @@ import food_53 from "./food_53.png";
 import food_54 from "./food_54.png";
 import food_55 from "./food_55.png";
 import food_56 from "./food_56.png";
+import cola from "./Cola.png";
+import smoke from "./smokes.png";
+import lays from "./lays.png";
 
 import add_icon_white from "./add_icon_white.png";
 import add_icon_green from "./add_icon_green.png";
@@ -140,6 +143,18 @@ export const menu_list = [
   {
     menu_name: "Gin",
     menu_image: menu_8,
+  },
+  {
+    menu_name: "Soft Drinks",
+    menu_image: cola,
+  },
+  {
+    menu_name: "Cigarette",
+    menu_image: smoke,
+  },
+  {
+    menu_name: "Snacks",
+    menu_image: lays,
   },
 ];
 
