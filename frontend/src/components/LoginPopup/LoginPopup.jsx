@@ -86,6 +86,7 @@ const LoginPopup = ({ setShowLoginPopup }) => {
             value={from.email}
             onChange={(e) => setFrom({ ...from, email: e.target.value })}
             placeholder="Your Email"
+            autoComplete="off"
             required
             className="outline-none border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-red-300"
           />

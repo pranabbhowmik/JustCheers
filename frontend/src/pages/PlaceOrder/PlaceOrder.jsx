@@ -134,6 +134,7 @@ const PlaceOrder = () => {
               name="firstName"
               onChange={handleChange}
               value={data.firstName}
+              autoComplete="off"
               type="text"
               placeholder="First Name"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
@@ -153,6 +154,7 @@ const PlaceOrder = () => {
             name="email"
             onChange={handleChange}
             value={data.email}
+            autoComplete="off"
             type="email"
             placeholder="Email address"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tomato"
