@@ -19,6 +19,9 @@ app.use(express.static("uploads"));
 app.use(cors());
 
 // app routes
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome to Food Delivery App");
+});
 app.use("/api/food", foodRouter);
 app.use("/api/user", authRouter);
 app.use("/api/cart", cartRouter);
