@@ -32,3 +32,4 @@ connectDb()
     console.log("Error in connecting to DB", err.message);
     process.exit(1);
   });
+export default app;
